@@ -16,9 +16,7 @@ int generateRandomNumber() {
     }
 }
 
-double calcEnergy(int p[]) {
-    // initialise values
-    double J = 1;
+double calcEnergy(int p[], double J = 1) { // set default J = 1 unless specified otherwise
     double E = 0;
 
     // calculate energy of system
@@ -51,8 +49,9 @@ double calcEnergyChange(int arr[]){
 }
 
 double calcProb(double dE, double beta) {
-    // calculate probability of flipping the particle
+    // calculate probability using boltzmann factor
     double p = exp(-beta * dE);
+    cout << "p: " << p << endl;
     if (p > 1) {
         return 1;
     } else {
@@ -61,8 +60,10 @@ double calcProb(double dE, double beta) {
 }
 
 int main() {
+    // create system conditions
     int sys[100];
     double beta = 1;
+    double J = 1;
 
     // create rng with seed dependent on time
     srand(time(0));
@@ -73,10 +74,12 @@ int main() {
     }
 
     // calculate energy of the system
-    cout << "Energy of the system: " << calcEnergy(sys) << endl;
+    cout << "Energy of the system: " << calcEnergy(sys, J) << endl;
 
     // calculate energy change of the system
     cout << "Energy change: " << calcEnergyChange(sys) << endl;
+
+    cout << "Probability: " << calcProb(calcEnergyChange(sys), beta) << endl;
 
     return 0;
 }

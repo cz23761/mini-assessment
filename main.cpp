@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+#include <cmath>
 using namespace std;
 
 int generateRandomNumber() {
@@ -49,8 +50,19 @@ double calcEnergyChange(int arr[]){
     return dE;
 }
 
+double calcProb(double dE, double beta) {
+    // calculate probability of flipping the particle
+    double p = exp(-beta * dE);
+    if (p > 1) {
+        return 1;
+    } else {
+        return p;
+    }
+}
+
 int main() {
     int sys[100];
+    double beta = 1;
 
     // create rng with seed dependent on time
     srand(time(0));

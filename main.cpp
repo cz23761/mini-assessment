@@ -16,6 +16,7 @@ int generateRandomNumber() {
 }
 
 double calcEnergy(int p[]) {
+    // initialise values
     double J = 1;
     double E = 0;
 
@@ -23,8 +24,29 @@ double calcEnergy(int p[]) {
     for(int i = 0; i < 99; i++) {
         E += -J * p[i] * p[i+1];
     }
-    cout << E << endl;
+
     return E;
+}
+
+double calcEnergyChange(int arr[]){
+    // "select" a random particle 
+    int n = rand() % 100;
+
+    double Ebefore = 0;
+    double Eafter = 0;
+
+    // calculate energy before
+    Ebefore = calcEnergy(arr);
+
+    // flip the value of the selected particle
+    arr[n] = -arr[n];
+
+    // calculate energy after flipping
+    Eafter = calcEnergy(arr);
+
+    double dE = Eafter - Ebefore;
+
+    return dE;
 }
 
 int main() {
@@ -38,7 +60,11 @@ int main() {
         sys[i] = generateRandomNumber();
     }
 
-    calcEnergy(sys);
+    // calculate energy of the system
+    cout << "Energy of the system: " << calcEnergy(sys) << endl;
+
+    // calculate energy change of the system
+    cout << "Energy change: " << calcEnergyChange(sys) << endl;
 
     return 0;
 }

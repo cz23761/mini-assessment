@@ -76,18 +76,17 @@ int main() {
     // calculate energy of the system
     cout << "Energy of the system: " << calcEnergy(sys, J) << endl;
 
-    // calculate energy change of the system
+    // select particle
     int k = rand() % 100;
+
+    //calculate energy change if that particle is flipped
     double EChange = calcEnergyChange(sys, k);
+
+    // calculate probability of flipping that particle based on the energy change
     double prob = calcProb(EChange, beta);
     double rnum = randReal();
 
     cout << "Energy change: " << EChange << endl;
-
-    cout << "Probability: " << prob << endl;
-    cout << "Real number: " << rnum << endl;
-
-    cout << (prob < rnum) << endl;
 
     return 0;
 }

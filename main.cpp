@@ -16,6 +16,11 @@ int generateRandomNumber() {
     }
 }
 
+double randReal() {
+    // generate a random number between 0 and 1
+    return (double)rand() / RAND_MAX;
+}
+
 double calcEnergy(int p[], double J = 1) { // set default J = 1 unless specified otherwise
     double E = 0;
 
@@ -27,10 +32,7 @@ double calcEnergy(int p[], double J = 1) { // set default J = 1 unless specified
     return E;
 }
 
-double calcEnergyChange(int arr[]){
-    // "select" a random particle 
-    int n = rand() % 100;
-
+double calcEnergyChange(int arr[], int n){
     double Ebefore = 0;
     double Eafter = 0;
 
@@ -43,15 +45,12 @@ double calcEnergyChange(int arr[]){
     // calculate energy after flipping
     Eafter = calcEnergy(arr);
 
-    double dE = Eafter - Ebefore;
-
-    return dE;
+    return Eafter - Ebefore;
 }
 
 double calcProb(double dE, double beta) {
     // calculate probability using boltzmann factor
     double p = exp(-beta * dE);
-    cout << "p: " << p << endl;
     if (p > 1) {
         return 1;
     } else {
@@ -64,8 +63,9 @@ int main() {
     int sys[100];
     double beta = 1;
     double J = 1;
+    int n = 1000;
 
-    // create rng with seed dependent on time
+    // set seed for random numbers to be based off of the time
     srand(time(0));
 
     // populate array with 1 or -1
@@ -77,9 +77,17 @@ int main() {
     cout << "Energy of the system: " << calcEnergy(sys, J) << endl;
 
     // calculate energy change of the system
-    cout << "Energy change: " << calcEnergyChange(sys) << endl;
+    int k = rand() % 100;
+    double EChange = calcEnergyChange(sys, k);
+    double prob = calcProb(EChange, beta);
+    double rnum = randReal();
 
-    cout << "Probability: " << calcProb(calcEnergyChange(sys), beta) << endl;
+    cout << "Energy change: " << EChange << endl;
+
+    cout << "Probability: " << prob << endl;
+    cout << "Real number: " << rnum << endl;
+
+    cout << (prob < rnum) << endl;
 
     return 0;
 }

@@ -49,8 +49,6 @@ double calcEnergyChange(int arr[], int n){
     // unflip the value of the selected particle
     arr[n] = -arr[n];
 
-    // cout << "Ebefore: " << Ebefore << ", Eafter: " << Eafter << endl;  // Debugging output
-
     // return the energy change
     return Eafter - Ebefore;
 }
@@ -79,35 +77,30 @@ int main() {
         sys[i] = generateRandomNumber();
     }
 
-    // select particle
-    int k = rand() % 100;
+    // output total energy of the system before running the simulation
+    cout << "Energy before: " << calcEnergy(sys) << endl;   
 
-    //calculate energy change if that particle is flipped
-    double EChange = calcEnergyChange(sys, k);
+    // main loop
+    for (int i = 0; i < n; i++) {
+        // select particle
+        int k = rand() % 100;
 
-    // calculate probability of flipping that particle based on the energy change
-    double prob = calcProb(EChange, beta);
-    double rnum = randReal();
+        //calculate energy change if that particle is flipped
+        double EChange = calcEnergyChange(sys, k);
 
-    // output debugging information
-    cout << "Energy before: " << calcEnergy(sys) << endl;    
-    cout << "K: " << sys[k] << endl;
-    cout << "Energy change: " << EChange << endl;
-    cout << "Probability: " << prob << endl;
-    cout << "Random number: " << rnum << endl;
+        // calculate probability of flipping that particle based on the energy change
+        double prob = calcProb(EChange, beta);
+        double rnum = randReal();
 
-    // flip the particle if the probability is large enough
-    if (rnum < prob) {
-        sys[k] = -sys[k]; // flip the particle
-        cout << "Particle flipped" << endl;
-    }
-    else {
-        cout << "Particle not flipped" << endl;
+        // flip the particle if the probability is large enough
+        if (rnum < prob) {
+            sys[k] = -sys[k]; // flip the particle
+            // cout << "Particle " << k << " flipped" << endl;
+        }
     }
 
-    // more debugging information
+    // output total energy of the system after running the simulation
     cout << "Energy after: " << calcEnergy(sys) << endl;
-    cout << "K: " << sys[k] << endl;
 
     return 0;
 }

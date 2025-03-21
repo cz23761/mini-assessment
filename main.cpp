@@ -29,6 +29,7 @@ double calcEnergy(int p[], double J = 1) { // set default J = 1 unless specified
         E += -J * p[i] * p[i+1];
     }
 
+    // return energy
     return E;
 }
 
@@ -45,6 +46,12 @@ double calcEnergyChange(int arr[], int n){
     // calculate energy after flipping
     Eafter = calcEnergy(arr);
 
+    // unflip the value of the selected particle
+    arr[n] = -arr[n];
+
+    // cout << "Ebefore: " << Ebefore << ", Eafter: " << Eafter << endl;  // Debugging output
+
+    // return the energy change
     return Eafter - Ebefore;
 }
 
@@ -62,7 +69,6 @@ int main() {
     // create system conditions
     int sys[100];
     double beta = 1;
-    double J = 1;
     int n = 1000;
 
     // set seed for random numbers to be based off of the time
@@ -72,9 +78,6 @@ int main() {
     for (int i = 0; i < 100; i++) {
         sys[i] = generateRandomNumber();
     }
-
-    // calculate energy of the system
-    cout << "Energy of the system: " << calcEnergy(sys, J) << endl;
 
     // select particle
     int k = rand() % 100;
@@ -86,7 +89,25 @@ int main() {
     double prob = calcProb(EChange, beta);
     double rnum = randReal();
 
+    // output debugging information
+    cout << "Energy before: " << calcEnergy(sys) << endl;    
+    cout << "K: " << sys[k] << endl;
     cout << "Energy change: " << EChange << endl;
+    cout << "Probability: " << prob << endl;
+    cout << "Random number: " << rnum << endl;
+
+    // flip the particle if the probability is large enough
+    if (rnum < prob) {
+        sys[k] = -sys[k]; // flip the particle
+        cout << "Particle flipped" << endl;
+    }
+    else {
+        cout << "Particle not flipped" << endl;
+    }
+
+    // more debugging information
+    cout << "Energy after: " << calcEnergy(sys) << endl;
+    cout << "K: " << sys[k] << endl;
 
     return 0;
 }

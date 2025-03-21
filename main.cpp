@@ -63,6 +63,17 @@ double calcProb(double dE, double beta) {
     }
 }
 
+double calcMag(int p[]) {
+    double M = 0;
+
+    // calculate magnetization of system
+    for(int i = 0; i < 100; i++) {
+        M += p[i];
+    }
+
+    return M;
+}
+
 int main() {
     // create system conditions
     int sys[100];
@@ -78,7 +89,10 @@ int main() {
     }
 
     // output total energy of the system before running the simulation
-    cout << "Energy before: " << calcEnergy(sys) << endl;   
+    cout << "Energy before: " << calcEnergy(sys) << endl;  
+    cout << "Magnetisation before: " << calcMag(sys) << endl; 
+
+    cout << "\nRunning simulation...\n" << endl;
 
     // main loop
     for (int i = 0; i < n; i++) {
@@ -101,6 +115,7 @@ int main() {
 
     // output total energy of the system after running the simulation
     cout << "Energy after: " << calcEnergy(sys) << endl;
+    cout << "Magnetisation after: " << calcMag(sys) << endl;
 
     return 0;
 }

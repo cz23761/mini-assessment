@@ -12,7 +12,6 @@ int main() {
     // number of monte carlo simulations
     int sweeps = 100;
 
-    string root = "data/ising_";
     for (int sweep = 0; sweep < sweeps; sweep++) {
         // seed the random number generator based on time and MCS number
         srand((int(time(0)) + sweep));
@@ -35,8 +34,8 @@ int main() {
         cout << "*****" << endl;
 
         // save the final system to a file
-        string filename = root + to_string(sweep) + ".txt";   
-        model.save("final_system.txt", model.getSpins());
+        string root = "data/ising_";
+        model.save(root + to_string(sweep));
     }
 
     return 0;

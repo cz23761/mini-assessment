@@ -26,7 +26,6 @@ class IsingModel {
         void printE();
         void printM();
         void save(const string &filename);
-        // vector<int> getSpins();
 };
 
 #endif

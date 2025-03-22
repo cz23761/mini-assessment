@@ -3,10 +3,12 @@
 
 #include <iostream>
 #include <vector>
+#include <string>
+using namespace std;
 
 class IsingModel {
     private:
-        std::vector<int> spins;
+        vector<int> spins;
         double J;
         double beta;
         int n;
@@ -23,6 +25,8 @@ class IsingModel {
         void runSimulation(int n);
         void printE();
         void printM();
+        void save(const string &filename);
+        // vector<int> getSpins();
 };
 
 #endif

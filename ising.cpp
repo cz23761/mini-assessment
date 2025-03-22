@@ -2,6 +2,10 @@
 #include <cmath>
 #include <cstdlib>
 #include <ctime>
+#include <fstream>
+#include <iostream>
+#include <vector>
+#include <string>
 using namespace std;
 
 int IsingModel::generateSpin() {
@@ -21,7 +25,7 @@ double IsingModel::generateRealNum() {
 }
 
 IsingModel::IsingModel(double J, double beta, int n){
-    srand(time(0));
+    // srand(time(0));
     this->J = J;
     this->beta = beta;
     this->n = n;
@@ -101,6 +105,27 @@ void IsingModel::runSimulation(int n){
         }
     }
 }
+
+void IsingModel::save(const string &filename){    
+    ofstream file(filename);
+
+    if(!file.is_open()){
+        cerr << "Error opening file: " << filename << endl;
+        return;
+    }
+
+    // loop through each element in the system and write its spin to the output file
+    for (int i = 0; i < int(spins.size()); i++) {
+        file << spins[i] << endl;
+    }
+
+    // close output file
+    file.close();
+}
+
+// vector<int> IsingModel::getSpins(){
+//     return vector<int>(spins);
+// }
 
 void IsingModel::printE(){
     cout << "Energy: " << calcEnergy() << endl;

@@ -16,7 +16,7 @@ int main() {
 
     // run the simulation
     cout << "\nRunning simulation..." << endl;
-    model.runSimulation(1000);
+    model.runSimulation(100000);
     cout << "Simulation complete.\n" << endl;
 
     // print final system energy and magnetisation

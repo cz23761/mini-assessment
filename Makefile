@@ -5,3 +5,6 @@ EXEC = ising
 
 $(EXEC): $(SRC)
 	$(CC) $(CFLAGS) $(SRC) -o $(EXEC)
+
+clean:
+    rm -f $(EXEC)

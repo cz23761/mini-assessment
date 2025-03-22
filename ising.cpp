@@ -123,10 +123,6 @@ void IsingModel::save(const string &filename){
     file.close();
 }
 
-// vector<int> IsingModel::getSpins(){
-//     return vector<int>(spins);
-// }
-
 void IsingModel::printE(){
     cout << "Energy: " << calcEnergy() << endl;
 }

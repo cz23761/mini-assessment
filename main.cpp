@@ -17,7 +17,7 @@ int main() {
         srand((int(time(0)) + sweep));
 
         // create an IsingModel object
-        IsingModel model(1, 1, 100); // J, beta, n
+        IsingModel model(1, 0.2, 100); // J, beta, n
 
         // print intital system energy and magnetisation
         model.printE();
@@ -35,7 +35,7 @@ int main() {
 
         // save the final system to a file
         string root = "data/ising_";
-        model.save(root + to_string(sweep));
+        model.save(root + to_string(sweep + 1));
     }
 
     return 0;

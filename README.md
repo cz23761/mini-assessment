@@ -3,9 +3,9 @@
 This project simulates the Ising model which simulates a system of interacting particles with a statistical mechanics approach.
 
 ## Python dependencies
-numpy
-matplotlib
-seaborn
+`numpy`
+`matplotlib`
+`seaborn`
 
 install dependencies with pip:
 pip install numpy matplotlib seaborn
@@ -18,4 +18,4 @@ This will run a monte carlo simulation with 10,000 steps and create 1,000 config
 The results are saved in /data
 
 ## Visulising results
-After running the simulation, run the python script. This will create histograms of the energy and magnetisation of the system in /plots/hists as well as an illustration of a single configuration at that temperature in /plots/states.
+After running the simulation, run the python script with "python3 ising.py". This will create histograms of the energy and magnetisation of the system in /plots/hists as well as an illustration of a single configuration at that temperature in /plots/states.

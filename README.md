@@ -1,4 +1,4 @@
-# Ising model simulation - Jack Rogerson
+# Ising model simulation
 
 This project simulates the Ising model which simulates a system of interacting particles with a statistical mechanics approach.
 

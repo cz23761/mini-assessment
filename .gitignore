@@ -1,3 +1,6 @@
 ising
 .vscode
 data
+*.txt
+*.png
+plots

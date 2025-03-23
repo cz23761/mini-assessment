@@ -61,10 +61,12 @@ M = []
 for i in range(1, 1001):
     energy, magnetisation, beta, state = read_spins(f"data/ising_{i}.txt")
     
+    # create lists of the energy and magnetisation
     E.append(energy)
     M.append(magnetisation)
     
-# plot the energy and magnetisation
+# plot the energies and magnetisations
 plot_ising(E, M, beta)
 
+# plot a state
 plot_state(state, beta)

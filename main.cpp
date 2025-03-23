@@ -9,34 +9,27 @@
 using namespace std;
 
 int main() {
-    // number of monte carlo simulations
-    int sweeps = 100;
+    int configs = 1000; // number of configurations
+    int monteCarloSteps = 10000; // number of times to pick a particle 
 
-    for (int sweep = 0; sweep < sweeps; sweep++) {
-        // seed the random number generator based on time and MCS number
-        srand((int(time(0)) + sweep));
+    cout << "Running simulation..." << endl;
+
+    // run the simulation
+    for (int config = 0; config < configs; config++) {
+        // seed the random number generator based on time iteration number
+        srand((int(time(0)) + config));
 
         // create an IsingModel object
-        IsingModel model(1, 0.2, 100); // J, beta, n
-
-        // print intital system energy and magnetisation
-        model.printE();
-        model.printM();
-
-        // run the simulation
-        cout << "\nRunning simulation " << sweep + 1 << "..." << endl;
-        model.runSimulation(1000);
-        cout << "Simulation complete.\n" << endl;
-
-        // print final system energy and magnetisation
-        model.printE();
-        model.printM();
-        cout << "*****" << endl;
+        IsingModel model(1, 1, 100); // J, beta, N
+        
+        model.runSimulation(monteCarloSteps);
 
         // save the final system to a file
         string root = "data/ising_";
-        model.save(root + to_string(sweep + 1));
+        model.save(root + to_string(config + 1) + ".txt");
     }
+
+    cout << "Simulation complete." << endl;
 
     return 0;
 }

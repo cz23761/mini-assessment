@@ -38,7 +38,7 @@ def plot_ising(E, M, B):
     ax2.set_xlabel("Magnetisation")
     ax2.set_ylabel("Count")
     
-    fig.savefig(f"plots/ising_{B}.png")
+    fig.savefig(f"plots/hists/ising_{B}.png")
     plt.close(fig)
     
 
@@ -49,7 +49,7 @@ def plot_state(state, B):
     """
     heatmap = sns.heatmap(state, cmap="viridis").set_title(f"State at Beta = {B}")
     fig = heatmap.get_figure()
-    fig.savefig(f"plots/state_{B}.png")
+    fig.savefig(f"plots/states/state_{B}.png")
     
     plt.close(fig)
     

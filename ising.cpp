@@ -117,6 +117,7 @@ void IsingModel::save(const string &filename){
 
     file << "E: " << calcEnergy() << endl;
     file << "M: " << calcMag() << endl;
+    file << "Beta: " << beta << endl;
 
     // loop through each element in the system and write its spin to the output file
     for (int i = 0; i < int(spins.size()); i++) {

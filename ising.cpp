@@ -24,43 +24,51 @@ double IsingModel::generateRealNum() {
     return (double)rand() / RAND_MAX;
 }
 
-IsingModel::IsingModel(double J, double beta, int n){
+IsingModel::IsingModel(double J, double beta, int rows, int cols){
     // srand(time(0));
     this->J = J;
     this->beta = beta;
-    this->n = n;
+    this->rows = rows;
+    this->cols = cols;
 
-    for (int i = 0; i < n; i++) {
-        spins.push_back(generateSpin());
+    spins = vector<vector<int>>(rows, vector<int>(cols));
+
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            spins[i][j] = generateSpin();
+        }
     }
 }
 
-double IsingModel::calcEnergy()
-{
+double IsingModel::calcEnergy() {
     double E = 0;
 
     // loop through the system keeping count of the energy
-    for (int i = 0; i < n - 1; i++) {
-        E += -J * spins[i] * spins[i + 1];
+    // only need to look at the right and bottom neighbors for each particle. this avoids double counting of energies.
+    for (int i = 0; i < rows - 1; i++) {
+        for (int j = 0; j < cols - 1; j++) {
+            E += -J * spins[i][j] * spins[i + 1][j];
+            E += -J * spins[i][j] * spins[i][j + 1];
+        }
     }
     return E;
 }
 
-double IsingModel::calcEnergyChange(int n){
+double IsingModel::calcEnergyChange(int row, int col){
     double Ebefore = 0;
     double Eafter = 0;
 
     // calculate energy before
     Ebefore = calcEnergy();
 
-    // flip the value of the selected particle
-    spins[n] = -spins[n];
+    // flip the value of the nth particle
+    spins[row][col] = -spins[row][col];
 
     // calculate energy after flipping
     Eafter = calcEnergy();
 
-    // unflip the value of the selected particle
-    spins[n] = -spins[n];
+    // unflip the value of the nth particle
+    spins[row][col] = -spins[row][col];
 
     // return the energy change that would result in the flipping of that particle
     return Eafter - Ebefore;
@@ -80,8 +88,10 @@ double IsingModel::calcMag(){
     double M = 0;
 
     // sum all spins in the system
-    for (int i = 0; i < n; i++) {
-        M += spins[i];
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            M += spins[i][j];
+        }
     }
     return M;
 }
@@ -90,10 +100,11 @@ void IsingModel::runSimulation(int n){
     // loop through the system n times
     for (int i = 0; i < n; i++) {
         // select particle
-        int k = rand() % 100;
+        int kRow = rand() % 100;
+        int kCol = rand() % 100;
 
         // calculate energy change if that particle is flipped
-        double dE = calcEnergyChange(k);
+        double dE = calcEnergyChange(kRow, kCol);
 
         // calculate probability of flipping that particle based on energy change
         double prob = calcProb(dE, beta);
@@ -101,7 +112,7 @@ void IsingModel::runSimulation(int n){
 
         // flip the particle if the probability is large enough
         if (rnum < prob) {
-            spins[k] = -spins[k]; // flip the particle
+            spins[kRow][kCol] = -spins[kRow][kCol]; // flip the particle
         }
     }
 }
@@ -121,7 +132,10 @@ void IsingModel::save(const string &filename){
 
     // loop through each element in the system and write its spin to the output file
     for (int i = 0; i < int(spins.size()); i++) {
-        file << spins[i] << endl;
+        for (int j = 0; j < int(spins[i].size()); j++) {
+            file << spins[i][j] << " ";
+        }
+        file << endl;
     }
 
     // close output file

@@ -8,7 +8,7 @@ using namespace std;
 
 class IsingModel {
     private:
-        vector<int> spins;
+        vector<int> spins; // use vector instead of array for increased functionality 
         double J;
         double beta;
         int n;

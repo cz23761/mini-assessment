@@ -39,7 +39,7 @@ def plot_ising(E, M, B):
     ax2.set_ylabel("Count")
     
     fig.savefig(f"plots/hists/ising_{B}.png")
-    plt.close(fig)
+    plt.close(fig) # prevent overlapping plots
     
 
 def plot_state(state, B):
@@ -51,7 +51,7 @@ def plot_state(state, B):
     fig = heatmap.get_figure()
     fig.savefig(f"plots/states/state_{B}.png")
     
-    plt.close(fig)
+    plt.close(fig) # prevent overlapping plots
     
         
 # read text file

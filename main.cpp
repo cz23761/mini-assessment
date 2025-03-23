@@ -9,7 +9,7 @@
 using namespace std;
 
 int main() {
-    int configs = 1000; // number of configurations
+    int configs = 100; // number of configurations
     int monteCarloSteps = 10000; // number of times to pick a particle 
 
     cout << "Running simulation..." << endl;
@@ -20,12 +20,12 @@ int main() {
         srand((int(time(0)) + config));
 
         // create an IsingModel object
-        IsingModel model(1, 1, 100); // J, beta, N
+        IsingModel model(1, 0.01, 100, 100); // J, beta, rows, cols
         
         model.runSimulation(monteCarloSteps);
 
         // save the final system to a file
-        string root = "data/ising_";
+        string root = "2d/data/ising_";
         model.save(root + to_string(config + 1) + ".txt");
     }
 

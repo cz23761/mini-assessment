@@ -30,11 +30,11 @@ def plot_ising(E, M, B):
     ax1.hist(E, bins=10)
     ax2.hist(M, bins=10)
     
-    ax1.set_title("Energy")
+    ax1.set_title(f"Energy (Avg E={mean(E)})")
     ax1.set_xlabel("Energy")
     ax1.set_ylabel("Count")
     
-    ax2.set_title("Magnetisation")
+    ax2.set_title(f"Magnetisation (Avg M={mean(M)})")
     ax2.set_xlabel("Magnetisation")
     ax2.set_ylabel("Count")
     
@@ -52,6 +52,12 @@ def plot_state(state, B):
     fig.savefig(f"plots/states/state_{B}.png")
     
     plt.close(fig) # prevent overlapping plots
+    
+def mean(l):
+    """
+    returns the mean of a list
+    """
+    return sum(l)/len(l)
     
         
 # read text file

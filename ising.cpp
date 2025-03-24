@@ -47,8 +47,8 @@ double IsingModel::calcEnergy() {
     // only need to look at the right and bottom neighbors for each particle. this avoids double counting of energies.
     for (int i = 0; i < rows - 1; i++) {
         for (int j = 0; j < cols - 1; j++) {
-            E += -J * spins[i][j] * spins[i + 1][j];
-            E += -J * spins[i][j] * spins[i][j + 1];
+            E += -J * spins[i][j] * spins[i + 1][j]; // bottom
+            E += -J * spins[i][j] * spins[i][j + 1]; // right
         }
     }
     return E;
@@ -99,9 +99,10 @@ double IsingModel::calcMag(){
 void IsingModel::runSimulation(int n){
     // loop through the system n times
     for (int i = 0; i < n; i++) {
+        srand((int(time(0)) + n));
         // select particle
-        int kRow = rand() % 100;
-        int kCol = rand() % 100;
+        int kRow = rand() % rows;
+        int kCol = rand() % cols;
 
         // calculate energy change if that particle is flipped
         double dE = calcEnergyChange(kRow, kCol);

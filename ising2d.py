@@ -67,7 +67,7 @@ E = []
 M = []
 
 # loop through all the files
-for i in range(1, 101):
+for i in range(1, 1001):
     energy, magnetisation, beta, state = read_spins(f"2d/data/ising_{i}.txt")
     
     # create lists of the energy and magnetisation

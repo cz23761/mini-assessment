@@ -25,7 +25,6 @@ double IsingModel::generateRealNum() {
 }
 
 IsingModel::IsingModel(double J, double beta, int rows, int cols){
-    // srand(time(0));
     this->J = J;
     this->beta = beta;
     this->rows = rows;
@@ -55,23 +54,26 @@ double IsingModel::calcEnergy() {
 }
 
 double IsingModel::calcEnergyChange(int row, int col){
-    double Ebefore = 0;
-    double Eafter = 0;
+    double dE = 0;
 
-    // calculate energy before
-    Ebefore = calcEnergy();
+    // select the spin at the given row and column
+    int spin = spins[row][col];
 
-    // flip the value of the nth particle
-    spins[row][col] = -spins[row][col];
-
-    // calculate energy after flipping
-    Eafter = calcEnergy();
-
-    // unflip the value of the nth particle
-    spins[row][col] = -spins[row][col];
-
-    // return the energy change that would result in the flipping of that particle
-    return Eafter - Ebefore;
+    // calculate the energy change if that particle is flipped
+    if (row > 0){ // top neighbour
+        dE += J * spin * spins[row - 1][col];
+    }
+    if (row < rows - 1){ // bottom neighbour
+        dE += J * spin * spins[row + 1][col];
+    }
+    if (col > 0){ // left neighbour
+        dE += J * spin * spins[row][col - 1];
+    }
+    if (col < cols -1){ // right neighbour
+        dE += J * spin * spins[row][col + 1];
+    }
+    
+    return 2 * dE;
 }
 
 double IsingModel::calcProb(double dE, double beta){
@@ -99,7 +101,7 @@ double IsingModel::calcMag(){
 void IsingModel::runSimulation(int n){
     // loop through the system n times
     for (int i = 0; i < n; i++) {
-        srand((int(time(0)) + n));
+        // srand(int(time(0)) + i);
         // select particle
         int kRow = rand() % rows;
         int kCol = rand() % cols;

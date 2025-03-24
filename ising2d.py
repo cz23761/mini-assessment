@@ -30,10 +30,49 @@ def plot_state(state, B):
     """
     heatmap = sns.heatmap(state, cmap="viridis").set_title(f"State at Beta = {B}")
     fig = heatmap.get_figure()
-    # fig.savefig(f"plots/states/state_{B}.png")
-    plt.show()
+    fig.savefig(f"2d/plots/states/state_{B}.png")
     
     plt.close(fig) # prevent overlapping plots
+    
+    
+def plot_ising(E, M, B):
+    """
+    creates histograms of the energy and magnetisation
+    """
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 8))
+    
+    ax1.hist(E, bins=10)
+    ax2.hist(M, bins=10)
+    
+    ax1.set_title(f"Energy (Avg E={mean(E)})")
+    ax1.set_xlabel("Energy")
+    ax1.set_ylabel("Count")
+    
+    ax2.set_title(f"Magnetisation (Avg M={mean(M)})")
+    ax2.set_xlabel("Magnetisation")
+    ax2.set_ylabel("Count")
+    
+    fig.savefig(f"2d/plots/hists/ising_{B}.png")
+    plt.close(fig) # prevent overlapping plots
 
-e, m, b, state = read_spins("2d/data/ising_1.txt")
-plot_state(state, b)
+
+def mean(l):
+    """
+    returns the mean of a list
+    """
+    return sum(l)/len(l)
+
+
+E = []
+M = []
+
+# loop through all the files
+for i in range(1, 101):
+    energy, magnetisation, beta, state = read_spins(f"2d/data/ising_{i}.txt")
+    
+    # create lists of the energy and magnetisation
+    E.append(energy)
+    M.append(magnetisation)
+    
+plot_state(state, beta)
+plot_ising(E, M, beta)

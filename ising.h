@@ -8,18 +8,19 @@ using namespace std;
 
 class IsingModel {
     private:
-        vector<int> spins; // use vector instead of array for increased functionality 
+        vector<vector<int>> spins; // use vector instead of array for increased functionality 
         double J;
         double beta;
-        int n;
+        int rows;
+        int cols;
 
         int generateSpin();
         double generateRealNum();
 
     public:
-        IsingModel(double J, double beta, int n);
+        IsingModel(double J, double beta, int rows, int cols);
         double calcEnergy();
-        double calcEnergyChange(int n);
+        double calcEnergyChange(int row, int col);
         double calcProb(double dE, double beta);
         double calcMag();
         void runSimulation(int n);
